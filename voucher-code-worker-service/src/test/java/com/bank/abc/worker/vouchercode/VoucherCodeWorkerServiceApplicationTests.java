@@ -1,6 +1,5 @@
-package com.bank.abc.integration.vouchercode;
+package com.bank.abc.worker.vouchercode;
 
-import com.bank.abc.worker.vouchercode.VoucherCodeWorkerServiceApplication;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -13,7 +12,7 @@ import redis.embedded.RedisServer;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest(classes = VoucherCodeWorkerServiceApplication.class)
-class VoucherCodeIntegrationServiceApplicationTests {
+class VoucherCodeWorkerServiceApplicationTests {
     public static final int REDIS_PORT = 32000;
     private static final RedisServer mockRedis = new RedisServer(REDIS_PORT);
 
