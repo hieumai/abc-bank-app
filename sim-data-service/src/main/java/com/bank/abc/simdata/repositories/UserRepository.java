@@ -1,6 +1,6 @@
 package com.bank.abc.simdata.repositories;
 
-import com.bank.abc.simdata.model.User;
+import com.bank.abc.simdata.models.entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

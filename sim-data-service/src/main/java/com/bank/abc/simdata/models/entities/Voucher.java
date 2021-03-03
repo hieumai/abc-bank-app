@@ -1,4 +1,4 @@
-package com.bank.abc.simdata.model;
+package com.bank.abc.simdata.models.entities;
 
 import javax.persistence.*;
 
@@ -6,21 +6,21 @@ import javax.persistence.*;
 @Table(name = "vouchers")
 public class Voucher {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Column
     private String code;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="user_id", nullable=false, insertable = false, updatable = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional=false)
+    @JoinColumn(name="user_id", nullable=false)
     private User user;
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

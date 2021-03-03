@@ -1,6 +1,6 @@
 package com.bank.abc.simdata.controller;
 
-import com.bank.abc.simdata.model.Voucher;
+import com.bank.abc.simdata.models.entities.Voucher;
 import com.bank.abc.simdata.services.VoucherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

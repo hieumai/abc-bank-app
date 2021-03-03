@@ -1,6 +1,6 @@
 package com.bank.abc.simdata.repositories;
 
-import com.bank.abc.simdata.model.Voucher;
+import com.bank.abc.simdata.models.entities.Voucher;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
