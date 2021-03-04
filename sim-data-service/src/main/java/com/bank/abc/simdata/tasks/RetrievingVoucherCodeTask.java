@@ -10,24 +10,28 @@ import org.slf4j.LoggerFactory;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.UUID;
 import java.util.concurrent.Callable;
 
 public class RetrievingVoucherCodeTask implements Callable<String> {
     private static final Logger logger = LoggerFactory.getLogger(RetrievingVoucherCodeTask.class);;
 
+    private final String taskId;
     private String voucherCodeServiceUrl;
 
     public RetrievingVoucherCodeTask() {
         // empty constructor for org.redisson.codec.JsonJacksonCodec to work
+        taskId = UUID.randomUUID().toString();
     }
 
     public RetrievingVoucherCodeTask(String voucherCodeServiceUrl) {
+        this();
         this.voucherCodeServiceUrl = voucherCodeServiceUrl;
     }
 
     @Override
     public String call() {
-        logger.info("Start getting voucher code");
+        logger.info("Start getting voucher code on task " + taskId);
         HttpClient client = HttpClients.createDefault();
         HttpGet request = new HttpGet(voucherCodeServiceUrl);
         try {
@@ -38,8 +42,7 @@ public class RetrievingVoucherCodeTask implements Callable<String> {
             while ((line = rd.readLine()) != null) {
                 voucherCodeBuilder.append(line);
             }
-            logger.debug("Voucher code is " + voucherCodeBuilder);
-            logger.info("Done getting voucher code");
+            logger.info("Done getting voucher code on task " + taskId);
             return voucherCodeBuilder.toString();
         } catch (IOException e) {
             e.printStackTrace();
