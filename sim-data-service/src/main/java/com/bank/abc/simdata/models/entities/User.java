@@ -13,8 +13,12 @@ public class User {
     @Column(name = "phone_number")
     private String phoneNumber;
 
+    @Column
+    private String password;
+
     @OneToMany(mappedBy = "user")
     private List<Voucher> vouchers;
+
 
     public Long getId() {
         return id;
@@ -38,5 +42,13 @@ public class User {
 
     public void setVouchers(List<Voucher> vouchers) {
         this.vouchers = vouchers;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

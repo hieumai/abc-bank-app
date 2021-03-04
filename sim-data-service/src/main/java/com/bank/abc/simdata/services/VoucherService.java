@@ -5,11 +5,9 @@ import com.bank.abc.simdata.models.entities.Voucher;
 import com.bank.abc.simdata.repositories.UserRepository;
 import com.bank.abc.simdata.repositories.VoucherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class VoucherService {
@@ -24,12 +22,14 @@ public class VoucherService {
     }
 
     public Voucher saveVoucherByUserPhoneNumber(String phoneNumber, String voucherCode) {
-        User probeUser = new User();
-        probeUser.setPhoneNumber(phoneNumber);
-        Optional<User> user = userRepository.findOne(Example.of(probeUser));
-        User resultUser = user.orElseGet(() -> userRepository.save(probeUser));
+        User user = userRepository.findOneByPhoneNumber(phoneNumber);
+        if (user == null) {
+            User newUser = new User();
+            newUser.setPhoneNumber(phoneNumber);
+            user = userRepository.save(newUser);
+        }
         Voucher newVoucher = new Voucher();
-        newVoucher.setUser(resultUser);
+        newVoucher.setUser(user);
         newVoucher.setCode(voucherCode);
         return voucherRepository.save(newVoucher);
     }
