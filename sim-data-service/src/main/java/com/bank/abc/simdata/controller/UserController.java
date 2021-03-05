@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 @RestController
 @RequestMapping("/api/v1/users")
-public class UsersController {
+public class UserController {
     @Autowired
     private UserService userService;
 

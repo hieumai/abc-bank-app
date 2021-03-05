@@ -12,10 +12,12 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.UUID;
 import java.util.concurrent.Callable;
+import java.util.stream.Collectors;
 
 public class RetrievingVoucherCodeTask implements Callable<String> {
     private static final Logger logger = LoggerFactory.getLogger(RetrievingVoucherCodeTask.class);;
 
+    private HttpClient client;
     private final String taskId;
     private String voucherCodeServiceUrl;
 
@@ -24,30 +26,30 @@ public class RetrievingVoucherCodeTask implements Callable<String> {
         taskId = UUID.randomUUID().toString();
     }
 
-    public RetrievingVoucherCodeTask(String voucherCodeServiceUrl) {
+    public RetrievingVoucherCodeTask(HttpClient client, String voucherCodeServiceUrl) {
         this();
+        this.client = client;
         this.voucherCodeServiceUrl = voucherCodeServiceUrl;
+    }
+
+    public RetrievingVoucherCodeTask(String voucherCodeServiceUrl) {
+        this(HttpClients.createDefault(), voucherCodeServiceUrl);
     }
 
     @Override
     public String call() {
         logger.info("Start getting voucher code on task " + taskId);
-        HttpClient client = HttpClients.createDefault();
-        HttpGet request = new HttpGet(voucherCodeServiceUrl);
         try {
+            HttpGet request = new HttpGet(voucherCodeServiceUrl);
             HttpResponse response = client.execute(request);
-            BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
-            StringBuilder voucherCodeBuilder = new StringBuilder();
-            String line;
-            while ((line = rd.readLine()) != null) {
-                voucherCodeBuilder.append(line);
+            try (BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()))) {
+                String voucherCode = rd.lines().collect(Collectors.joining("\n"));
+                logger.info("Done getting voucher code on task " + taskId);
+                return voucherCode;
             }
-            logger.info("Done getting voucher code on task " + taskId);
-            return voucherCodeBuilder.toString();
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
         }
-
         return null;
     }
 }

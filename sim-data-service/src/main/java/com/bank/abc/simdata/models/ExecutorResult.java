@@ -1,7 +1,7 @@
 package com.bank.abc.simdata.models;
 
 public class ExecutorResult {
-    private final String phoneNumber;
+    private String phoneNumber;
     private boolean isTimeout;
 
     public ExecutorResult(String phoneNumber) {
@@ -19,5 +19,9 @@ public class ExecutorResult {
 
     public String getPhoneNumber() {
         return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 }

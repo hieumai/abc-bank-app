@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/v1/vouchers")
-public class VouchersController {
+public class VoucherController {
     @Autowired
     private VoucherService voucherService;
 
