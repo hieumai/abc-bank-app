@@ -1,11 +1,10 @@
-## voucher-code-worker-service
-Sample service running as a Redisson node as workers for long-running tasks to integrate with 3rd party voucher code services
+## voucher-code-service
+Sample service running as a mock HTTP API Server to simulate the following behaviours of a 3rd party voucher provider service:
 
-Please reference [Redisson Standalone Node wiki](https://github.com/redisson/redisson/wiki/12.-Standalone-node) for more details about Redisson node
-
-### Preconditions
-* An instance of Redis server is started in the local machine with default port (6379) in a single node setup (Guide [here](https://redislabs.com/get-started-with-redis/))
-* If Redis server is not running at the default config then you need to change the file [redisson config file](src/main/resources/redisson-config.yaml) following [Configuration](https://github.com/redisson/redisson/wiki/2.-Configuration) page
+```
+* provide an API for the client to call via HTTP(s) protocol to get the voucher code
+* The API always returns a voucher code after 3 to 120 seconds
+```
 
 ### Run the service locally
 To run the service locally, either

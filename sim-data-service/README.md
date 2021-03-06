@@ -1,7 +1,9 @@
-## voucher-code-worker-service
-Sample service running as a Redisson node as workers for long-running tasks to integrate with 3rd party voucher code services
+## sim-data-service
+Main sample service running as the HTTP API servers to provide functions for the sim data function for bank ABC
 
-Please reference [Redisson Standalone Node wiki](https://github.com/redisson/redisson/wiki/12.-Standalone-node) for more details about Redisson node
+Also acts as a Redisson Distributed Scheduled Executor Service to submit, execute and listen for results for distributed computations with remote workers
+
+Please reference [Redisson Distributed Scheduled Executor Service wiki](https://github.com/redisson/redisson/wiki/9.-distributed-services#94-distributed-scheduled-executor-service) for more details
 
 ### Preconditions
 * An instance of Redis server is started in the local machine with default port (6379) in a single node setup (Guide [here](https://redislabs.com/get-started-with-redis/))
