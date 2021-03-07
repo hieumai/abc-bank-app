@@ -51,8 +51,9 @@ The result will either be the **purchased voucher code**, or a message saying `"
 If the result is the voucher code then skip to step #3
 
 2. If step #1 result in the waiting message, after waiting for maximum of 150 seconds, go to the terminal/cmd/Powershell window that run the process **sim-data-service**, and you should see a log message like below
-> SMS sent for voucher code <random code> to 09332229321
-
+```
+SMS sent for voucher code <random code> to 09332229321
+```
 This simulates the sms message being sent to the user after the **purchased voucher code** is received from the worker service
 
 3. Run the following command to view the purchased voucher codes for phone number **09332229321**
@@ -75,8 +76,9 @@ If the result is the voucher code then skip to step #3
 A new user should be created for the input phone number
 
 2. If step #1 result in the waiting message, after waiting for maximum of 150 seconds, go to the terminal/cmd/Powershell window that run the process **sim-data-service**, and you should see a log message like below
-> SMS sent for voucher code <random code> to 01234566789
-
+```
+SMS sent for voucher code <random code> to 01234566789
+```
 This simulates the sms message being sent to the user after the **purchased voucher code** is received from the worker service
 
 3. Next step is to generate a new password for our new user. Run the following command to generate a sms verification code sent to the phone number **01234566789**
@@ -84,8 +86,9 @@ This simulates the sms message being sent to the user after the **purchased vouc
 curl localhost:8080/api/v1/sms/verificationCode?phoneNumber=01234566789
 ```
 You should see the follow message, or log from the **sim-data-service** simulate our **generated sms verification code**:
-> Your login verification code is:<sms verification code> - valid for 60 seconds
-
+```
+Your login verification code is:<sms verification code> - valid for 60 seconds
+```
 The code has only 60 second expiration time so be sure to use it quickly in the next step
 
 4. Run the following command to set a new password for our new user
