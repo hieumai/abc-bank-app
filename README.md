@@ -47,7 +47,7 @@ mvnw spring-boot:run
 ```shell
 curl -X POST -F "phoneNumber=09332229321" http://localhost:8080/api/v1/data
 ```
-The result will either be the **purchased voucher code**, or a message saying "Please wait. The request is being processed within 30 seconds"  
+The result will either be the **purchased voucher code**, or a message saying `"Please wait. The request is being processed within 30 seconds"`  
 If the result is the voucher code then skip to step #3
 
 2. If step #1 result in the waiting message, after waiting for maximum of 150 seconds, go to the terminal/cmd/Powershell window that run the process **sim-data-service**, and you should see a log message like below
@@ -69,7 +69,7 @@ You should see the following results return from the http call
 ```shell
 curl -X POST -F "phoneNumber=01234566789" http://localhost:8080/api/v1/data
 ```
-The result will either be the **purchased voucher code**, or a message saying "Please wait. The request is being processed within 30 seconds"  
+The result will either be the **purchased voucher code**, or a message saying `"Please wait. The request is being processed within 30 seconds"`  
 If the result is the voucher code then skip to step #3
 
 A new user should be created for the input phone number
