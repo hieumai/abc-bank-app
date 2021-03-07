@@ -8,7 +8,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.UUID;
 import java.util.concurrent.Callable;
@@ -17,7 +16,6 @@ import java.util.stream.Collectors;
 public class RetrievingVoucherCodeTask implements Callable<String> {
     private static final Logger logger = LoggerFactory.getLogger(RetrievingVoucherCodeTask.class);;
 
-    private HttpClient client;
     private final String taskId;
     private String voucherCodeServiceUrl;
 
@@ -26,14 +24,9 @@ public class RetrievingVoucherCodeTask implements Callable<String> {
         taskId = UUID.randomUUID().toString();
     }
 
-    public RetrievingVoucherCodeTask(HttpClient client, String voucherCodeServiceUrl) {
-        this();
-        this.client = client;
-        this.voucherCodeServiceUrl = voucherCodeServiceUrl;
-    }
-
     public RetrievingVoucherCodeTask(String voucherCodeServiceUrl) {
-        this(HttpClients.createDefault(), voucherCodeServiceUrl);
+        this();
+        this.voucherCodeServiceUrl = voucherCodeServiceUrl;
     }
 
     @Override
@@ -41,7 +34,7 @@ public class RetrievingVoucherCodeTask implements Callable<String> {
         logger.info("Start getting voucher code on task " + taskId);
         try {
             HttpGet request = new HttpGet(voucherCodeServiceUrl);
-            HttpResponse response = client.execute(request);
+            HttpResponse response = getHttpClient().execute(request);
             try (BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()))) {
                 String voucherCode = rd.lines().collect(Collectors.joining("\n"));
                 logger.info("Done getting voucher code on task " + taskId);
@@ -51,5 +44,9 @@ public class RetrievingVoucherCodeTask implements Callable<String> {
             logger.error(e.getMessage(), e);
         }
         return null;
+    }
+
+    public HttpClient getHttpClient() {
+        return HttpClients.createDefault();
     }
 }

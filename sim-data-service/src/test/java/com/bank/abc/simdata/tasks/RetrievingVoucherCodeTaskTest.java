@@ -48,7 +48,8 @@ class RetrievingVoucherCodeTaskTest {
         Logger root = (Logger) LoggerFactory.getLogger(Logger.ROOT_LOGGER_NAME);
         root.addAppender(mockedAppender);
         root.setLevel(Level.INFO);
-        task = new RetrievingVoucherCodeTask(mockClient, SERVER_URL);
+        task = spy(new RetrievingVoucherCodeTask(SERVER_URL));
+        when(task.getHttpClient()).thenReturn(mockClient);
     }
 
     @Test
